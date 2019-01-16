@@ -7,7 +7,7 @@ import { AnalysisComponent } from './analysis/analysis.component';
 const routes: Routes =  [
 
   {path: '',component: CustomerComponent},
-  {path: 'Customer',component: CustomerComponent},
+  {path: 'Customers',component: CustomerComponent},
   {path: 'Orders',component: OrdersComponent},
   {path: 'Analysis',component: AnalysisComponent},
  

@@ -1,5 +1,6 @@
 <h3>Customers</h3>
-<app-grid [dataSource]="dataSource"[displayedColumns]="displayedColumns"
-[page]="page" [pagesToShow]="pagesToShow" [perPage]="perPage" [count]="count">
+<app-grid [dataSource]="dataSource" [displayedColumns]="displayedColumns"
+[page]="page" [pagesToShow]="pagesToShow" [perPage]="perPage" [count]="count" 
+(goPage)="goPage($event)" (goNext)="goNext()" (goPrev)="goPrev()" (Edit)="edit($event)">
 
 </app-grid>

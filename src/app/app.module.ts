@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatIconModule,  MatDialogModule, MatButtonModule, MatCheckboxModule,MatTable,MatTableModule, MatPaginatorModule} from '@angular/material';
+import { MatSelectModule,MatOptionModule, MatFormFieldModule,MatIconModule,  MatDialogModule, MatButtonModule, MatCheckboxModule,MatTable,MatTableModule, MatPaginatorModule} from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
@@ -9,7 +9,13 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { AnalysisComponent } from './analysis/analysis.component';
 import { OrdersComponent } from './orders/orders.component';
 import { GridComponent } from './grid/grid.component';
+import{UserService} from './services/UserService'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { HttpModule } from '@angular/http';
+import { EmptyRowsFillerPipePipe } from './empty-rows-filler-pipe.pipe';
+import { DialogComponent } from './dialog/dialog.component';
+import { UserDialogComponent } from './user-dialog/user-dialog.component';
+import { OrderDialogComponent } from './order-dialog/order-dialog.component'
 
 @NgModule({
   declarations: [
@@ -21,6 +27,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     AnalysisComponent,
     OrdersComponent,
     GridComponent,
+    EmptyRowsFillerPipePipe,
+    DialogComponent,
+    UserDialogComponent,
+    OrderDialogComponent,
 
   ],
   imports: [
@@ -32,9 +42,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     MatTableModule,
     MatPaginatorModule,
-    MatDialogModule
+    MatDialogModule,
+    HttpModule,
+    MatFormFieldModule,
+    MatSelectModule,MatOptionModule,
+   
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [UserService],
+  bootstrap: [AppComponent],
+  entryComponents: [DialogComponent,UserDialogComponent,OrderDialogComponent],
 })
 export class AppModule { }
