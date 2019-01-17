@@ -32,10 +32,21 @@ export class GridComponent implements OnInit {
   ngOnInit() {
   }
 
+  onAdd(item:any)
+  {
+    this.Add.emit(item)
+  }
+
   onEdit(item:any)
   {
-    console.log("hi")
+    
     this.Edit.emit(item)
+  }
+
+  onDelete(item:any)
+  {
+   
+    this.Delete.emit(item)
   }
 
   goToPage(n: number): void {

@@ -1,24 +1,32 @@
-<p>
-    <h5>Edit Customer </h5>
+
+
+       <h5>Edit Customer </h5>
+       <br><br>
+
+   
     <div class="example-container">
       <mat-form-field>
-        <input matInput placeholder="Input">
-      </mat-form-field>
-    
+        <input matInput placeholder="First Name" [(ngModel)]="item.firstName">
+      </mat-form-field>&nbsp;
       <mat-form-field>
-        <textarea matInput placeholder="Textarea"></textarea>
-      </mat-form-field>
-    
+        <input matInput placeholder="Last Name"  [(ngModel)]="item.lastName">
+      </mat-form-field>&nbsp;
       <mat-form-field>
-        <mat-select placeholder="Select">
-          <mat-option value="option">Option</mat-option>
-        </mat-select>
-      </mat-form-field>
+        <input matInput placeholder="Adress" [(ngModel)]="item.adress">
+      </mat-form-field>&nbsp;
+      <mat-form-field>
+        <input matInput placeholder="Phone Num" [(ngModel)]="item.phoneNum">
+      </mat-form-field>&nbsp;
+      <br>
+      <mat-checkbox [(ngModel)]="Admin" >Admin</mat-checkbox><br>
+      <mat-checkbox [(ngModel)]="Customer" >Customer</mat-checkbox>
+      <br><br><br><br><br><br><br><br><br><br>
+      <button mat-raised-button color="primary"(click)="onSave(item)">Save</button>&nbsp;
+      <button mat-raised-button color="primary"(click)="onClose(item)">Close</button>
+      
     </div>
 
 
 
-    {{item.firstName}} {{item.lastName}}
   
-  
-</p>
+    

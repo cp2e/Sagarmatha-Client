@@ -30,6 +30,44 @@ export class UserService {
         }
         
     }
+
+    public UpdateUser(User:any) {
+        try{
+        return this.http.post(`/api/user/update`,User).pipe(timeout(5000)).subscribe(res=>
+        {
+            alert("updated successfully")
+            console.log("updated successfully",res)
+        })
+        }
+        catch (err)
+        {
+            alert(err)
+            console.log(err)
+        }
+        
+    }
+    public DeleteUser(User:any) {
+        try{
+        return this.http.get(`/api/user/delete?_id=${User._id}`).pipe(timeout(5000))
+        }
+        catch (err)
+        {
+            alert(err)
+            console.log(err)
+        }
+        
+    }
+    public AddUser(User:any) {
+        try{
+        return this.http.post(`/api/user/add`,User).pipe(timeout(5000))
+        }
+        catch (err)
+        {
+            alert(err)
+            console.log(err)
+        }
+        
+    }
    
     
     HandleResponse(error:any)
