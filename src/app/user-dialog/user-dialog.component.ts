@@ -32,21 +32,15 @@ export class UserDialogComponent implements OnInit {
       console.log(item)
       if(item.roles.length>0)
       {
-        if(item.roles.find(x=>x.name==="Admin")) // find(x=>x.mame=='Admin')
+        if(item.roles.find(x=>x.name==="Admin")) 
         {
           this.Admin=true
         }
-        if(item.roles.find(x=>x.name==="Customer"))                    //find(x=>x.mame=='Customer')
+        if(item.roles.find(x=>x.name==="Customer"))               
         {
           this.Customer=true
         }
       }
-
-     // if(item.roles.)
-      // firstName
-      // lastName 
-      // adress
-      // phoneNum:string  
     }
 
   ngOnInit() {

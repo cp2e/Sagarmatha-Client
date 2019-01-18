@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/UserService';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {DialogComponent} from '../dialog/dialog.component'
-import {UserDialogComponent} from '../user-dialog/user-dialog.component'
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { DialogComponent } from '../dialog/dialog.component'
+import { UserDialogComponent } from '../user-dialog/user-dialog.component'
+import { debug } from 'util';
 
 export interface Item {
-  firstName:string  
-  lastName:string  
-  adress:string  
-  phoneNum:string
-  roles:any[]
-  orders:[]
- 
+  firstName: string
+  lastName: string
+  adress: string
+  phoneNum: string
+  roles: any[]
+  orders: []
+
 }
 
 
@@ -23,119 +24,117 @@ export interface Item {
 
 
 export class CustomerComponent implements OnInit {
-  displayedColumns:any[]
+  displayedColumns: any[]
   dataSource
-  page=1 
-  pagesToShow=10  
-  perPage=10 
-  count=1
+  page = 1
+  pagesToShow = 10
+  perPage = 10
+  count = 1
   _UserService
 
-  constructor(public UserService: UserService,public dialog: MatDialog ) {
-    this.displayedColumns=['firstName','lastName','adress','phoneNum','actions']
-    this._UserService=UserService
+  constructor(public UserService: UserService, public dialog: MatDialog) {
+    this.displayedColumns = ['firstName', 'lastName', 'adress', 'phoneNum', 'actions']
+    this._UserService = UserService
     this.getAllUsers()
     this.getUserCount()
   }
-  
+
   ngOnInit() { }
-  
+
   openDialog(item): void {
     const dialogRef = this.dialog.open(UserDialogComponent, {
       width: '800px',
-      height:'800px',
+      height: '800px',
       data: item
     });
-      
+
     dialogRef.afterClosed().subscribe(result => {
-      if(result)
-      {
-        if(result.Admin==true)result.item.roles.push({name:"Admin",description:"Admin is allowed to preform all actions"})
-        if(result.Customer==true)result.item.roles.push({name:"Customer",description:"Customer is allowed to preform actions related to him"})
-        if(result.item._id)this.UpdateUserToTheDB(result.item)
+      if (result) {
+        if (result.Admin == true) result.item.roles.push({ name: "Admin", description: "Admin is allowed to preform all actions" })
+        if (result.Customer == true) result.item.roles.push({ name: "Customer", description: "Customer is allowed to preform actions related to him" })
+        if (result.item._id) this.UpdateUserToTheDB(result.item)
         else this.SaveUserToTheDB(result.item)
       }
       console.log('The dialog was closed');
     });
   }
-  
-  UpdateUserToTheDB(item:any)
-  {
-    this.UserService.UpdateUser(item);
-  }
 
-  SaveUserToTheDB(result)
-  {
-    this.UserService.AddUser(result).subscribe(res=>{
-      if(res.status===200)
-      {
-          if((this.count+1)%10==0)
-          this.page++
-          this.getUserCount()
-          this.getAllUsers()
-      }
-    })
-  }
-
-  add()
-  {
-    const item:Item={firstName:"",lastName:"" ,adress:"" ,phoneNum:"",roles:[],orders:[]}
+  //grid events
+  add() {
+    const item: Item = { firstName: "", lastName: "", adress: "", phoneNum: "", roles: [], orders: [] }
     this.openDialog(item)
   }
 
-  edit(item)
-  {
-    this.openDialog(item)
-  }
+  edit(item) { this.openDialog(item) }
 
-  delete(item)
-  {
-    this.UserService.DeleteUser(item).subscribe(res=>{
-      if(res.status===200)
-      {
-          if((this.count-1)%10==0)
-          this.page--
-          this.getUserCount()
-          this.getAllUsers()
-      }
-    })  
-  }
-
-  goPage(Page)
-  {
-    this.page=Page
+  goPage(Page) {
+    this.page = Page
     this.getAllUsers()
   }
 
-  goNext()
-  {
+  goNext() {
     this.page++
     this.getAllUsers()
 
   }
-  goPrev()
-  {
+  goPrev() {
     this.page--
-  this.getAllUsers()
+    this.getAllUsers()
 
   }
-  
-  getAllUsers()
-  {
-    this._UserService.GetAllUsers(this.page,this.perPage).subscribe(res=>
-          {
-          this.dataSource=res.json()
-          console.log( this.dataSource)
-          })
 
+  // CRUD operations
+  getAllUsers() {
+    try {
+      const dialogRef = this.dialog.open(DialogComponent, { width: '300px', height: '300px' });
+      dialogRef.componentInstance.orders="JJJJJJJJJJJJJJJJ"
+      dialogRef.componentInstance.loading="Loading"
+
+      this._UserService.GetAllUsers(this.page, this.perPage).subscribe(
+        result => {
+          console.log("fromclient", result)
+          this.dataSource = result
+        },
+        err => { 
+          dialogRef.close() 
+        })
+
+    }
+    catch (err) {
+       console.log(err) }
   }
-  getUserCount()
-  {
-    this._UserService.GetUserCount(this.page,this.perPage).subscribe(res=>
-      {
-      let result =res.json()
-      this.count=result.count
-      })
+
+  delete(item) {
+    this.UserService.DeleteUser(item).subscribe(res => {
+      if (res.status === 200) {
+        if ((this.count - 1) % 10 == 0)
+          this.page--
+        this.getUserCount()
+        this.getAllUsers()
+      }
+    })
+  }
+
+  UpdateUserToTheDB(item: any) {
+    this.UserService.UpdateUser(item);
+  }
+
+  SaveUserToTheDB(result) {
+    this.UserService.AddUser(result).subscribe(res => {
+      if (res.status === 200) {
+        if ((this.count + 1) % 10 == 0)
+          this.page++
+        this.getUserCount()
+        this.getAllUsers()
+      }
+    })
+  }
+
+  getUserCount() {
+    this._UserService.GetUserCount(this.page, this.perPage).subscribe(res => {
+      let result = res.json()
+      this.count = result.count
+    })
   }
 
 }
