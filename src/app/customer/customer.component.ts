@@ -87,8 +87,8 @@ export class CustomerComponent implements OnInit {
   getAllUsers() {
     try {
       const dialogRef = this.dialog.open(DialogComponent, { width: '300px', height: '300px' });
-      dialogRef.componentInstance.orders="JJJJJJJJJJJJJJJJ"
-      dialogRef.componentInstance.loading="Loading"
+     // dialogRef.componentInstance.orders="JJJJJJJJJJJJJJJJ"
+    //  dialogRef.componentInstance.loading="Loading"
 
       this._UserService.GetAllUsers(this.page, this.perPage).subscribe(
         result => {
