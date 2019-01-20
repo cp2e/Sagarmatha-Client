@@ -25,7 +25,7 @@ export interface Item {
 
 export class CustomerComponent implements OnInit {
   displayedColumns: any[]
-  dataSource
+  dataSource=[null,null,null,null,null,null,null,null,null,null]
   page = 1
   pagesToShow = 10
   perPage = 10
@@ -86,48 +86,75 @@ export class CustomerComponent implements OnInit {
   // CRUD operations
   getAllUsers() {
     try {
-      const dialogRef = this.dialog.open(DialogComponent, { width: '300px', height: '300px' });
-     // dialogRef.componentInstance.orders="JJJJJJJJJJJJJJJJ"
-    //  dialogRef.componentInstance.loading="Loading"
-
+      const dialogRef = this.dialog.open(DialogComponent, { width: '600px', height: '600px' });
       this._UserService.GetAllUsers(this.page, this.perPage).subscribe(
         result => {
           console.log("fromclient", result)
           this.dataSource = result
+          dialogRef.close()
         },
-        err => { 
-          dialogRef.close() 
+        err => {
+          dialogRef.afterClosed().subscribe(result => alert("problem preforming this action" + err))
+          dialogRef.close()
+          
         })
 
     }
     catch (err) {
-       console.log(err) }
+      console.log(err)
+    }
   }
 
   delete(item) {
-    this.UserService.DeleteUser(item).subscribe(res => {
-      if (res.status === 200) {
-        if ((this.count - 1) % 10 == 0)
-          this.page--
-        this.getUserCount()
-        this.getAllUsers()
-      }
-    })
+    try {
+      const dialogRef = this.dialog.open(DialogComponent, { width: '600px', height: '600px' });
+      this.UserService.DeleteUser(item).subscribe(
+        res => {
+          if (res.status === 200) {
+            if ((this.count - 1) % 10 == 0)
+              this.page--
+            dialogRef.close()
+            this.getUserCount()
+            this.getAllUsers()
+          }
+        }),
+        err => {
+          dialogRef.afterClosed().subscribe(result => alert("problem preforming this action" + err))
+          dialogRef.close()
+          
+        }
+    }
+    catch (err) {
+      console.log(err)
+    }
   }
 
   UpdateUserToTheDB(item: any) {
+
     this.UserService.UpdateUser(item);
   }
 
   SaveUserToTheDB(result) {
-    this.UserService.AddUser(result).subscribe(res => {
+    try {
+      const dialogRef = this.dialog.open(DialogComponent, { width: '600px', height: '600px' });
+    this.UserService.AddUser(result).subscribe(
+      res => {
       if (res.status === 200) {
         if ((this.count + 1) % 10 == 0)
           this.page++
+        dialogRef.close()
         this.getUserCount()
         this.getAllUsers()
       }
-    })
+      
+    },
+    err => {
+      dialogRef.afterClosed().subscribe(result => alert("problem preforming this action" + err))
+      dialogRef.close()
+    });}
+    catch (err) {
+      console.log(err)
+    }
   }
 
   getUserCount() {
@@ -136,5 +163,4 @@ export class CustomerComponent implements OnInit {
       this.count = result.count
     })
   }
-
 }

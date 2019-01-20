@@ -10,6 +10,7 @@ import { AnalysisComponent } from './analysis/analysis.component';
 import { OrdersComponent } from './orders/orders.component';
 import { GridComponent } from './grid/grid.component';
 import{UserService} from './services/UserService'
+import{OrderService} from './services/OrderService'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { EmptyRowsFillerPipePipe } from './empty-rows-filler-pipe.pipe';
@@ -52,7 +53,7 @@ import {HttpClientModule } from '@angular/common/http'
     MatProgressSpinnerModule
    
   ],
-  providers: [UserService],
+  providers: [UserService,OrderService],
   bootstrap: [AppComponent],
   entryComponents: [DialogComponent,UserDialogComponent,OrderDialogComponent],
 })
