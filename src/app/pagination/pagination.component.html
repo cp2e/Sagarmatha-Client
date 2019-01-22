@@ -1,0 +1,15 @@
+<div class="pagination row" *ngIf="count > 0">
+	
+    <div class="numbers col-12">
+      <button class="arrow btn btn-primary" (click)="onPrev()" [disabled]="page === 1 || loading" [ngClass]="{ 'disabled': page === 1 || loading }">&lt; Previous</button>
+      
+      <button class="number btn btn-primary"
+        *ngFor="let pageNum of getPages()"
+        (click)="onPage(pageNum)"
+        [ngClass]="{'active': pageNum === page, 'disabled': loading}">{{ pageNum }}</button>
+  
+      <button class="arrow btn btn-primary" (click)="onNext(true)" [disabled]="lastPage() || loading" [ngClass]="{ 'disabled': lastPage() || loading }">Next &gt;</button>
+    </div>
+     
+    <div class="description col-12">Showing {{ getMin() }} - {{ getMax() }} of {{ count }} Results</div>
+  </div>
