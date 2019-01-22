@@ -1,0 +1,18 @@
+
+<div *ngIf="LoggedIn; else elseBlock">
+  
+    <button mat-raised-button color="primary"(click)="LogOut()">Logout</button>
+
+</div>
+<ng-template #elseBlock>
+   
+  
+    <mat-form-field>
+        <input matInput placeholder="User Name" [(ngModel)]="userName">
+      </mat-form-field>&nbsp;
+      <button mat-raised-button color="primary"(click)="Login()">Login</button>
+      {{user?user.name:"nothing"}}
+ 
+
+</ng-template>
+

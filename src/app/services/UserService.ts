@@ -15,6 +15,10 @@ export class UserService {
          return this.http2.get(`/api/user/find_all_users?page=${page}&page_size=${page_size}`).pipe(timeout(5000),catchError(this.handleError)) 
     }
 
+    public  GetUserByUserName(userName):Observable<any> { 
+        return this.http2.get(`/api/user/find_by_user_name?userName=${userName}`).pipe(timeout(5000),catchError(this.handleError)) 
+   }
+
     public GetUserCount(page:number,page_size:number) {
         return this.http.get(`/api/user/user_count`).pipe(timeout(5000),catchError(this.handleError)) 
         

@@ -18,7 +18,9 @@ import { DialogComponent } from './dialog/dialog.component';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { OrderDialogComponent } from './order-dialog/order-dialog.component'
 import { FormsModule } from '@angular/forms';
-import {HttpClientModule } from '@angular/common/http'
+import {HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component'
+import { GuardService } from './services/GuardService';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import {HttpClientModule } from '@angular/common/http'
     DialogComponent,
     UserDialogComponent,
     OrderDialogComponent,
+    LoginComponent,
     
 
   ],
@@ -53,7 +56,7 @@ import {HttpClientModule } from '@angular/common/http'
     MatProgressSpinnerModule
    
   ],
-  providers: [UserService,OrderService],
+  providers: [UserService,OrderService,GuardService],
   bootstrap: [AppComponent],
   entryComponents: [DialogComponent,UserDialogComponent,OrderDialogComponent],
 })

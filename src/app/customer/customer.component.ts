@@ -6,6 +6,7 @@ import { UserDialogComponent } from '../user-dialog/user-dialog.component'
 import { debug } from 'util';
 
 export interface Item {
+  userName:string
   firstName: string
   lastName: string
   adress: string
@@ -33,7 +34,7 @@ export class CustomerComponent implements OnInit {
   _UserService
 
   constructor(public UserService: UserService, public dialog: MatDialog) {
-    this.displayedColumns = ['firstName', 'lastName', 'adress', 'phoneNum', 'actions']
+    this.displayedColumns = ['userName','firstName', 'lastName', 'adress', 'phoneNum', 'actions']
     this._UserService = UserService
     this.getAllUsers()
     this.getUserCount()
@@ -61,7 +62,7 @@ export class CustomerComponent implements OnInit {
 
   //grid events
   add() {
-    const item: Item = { firstName: "", lastName: "", adress: "", phoneNum: "", roles: [], orders: [] }
+    const item: Item = {userName:"", firstName: "", lastName: "", adress: "", phoneNum: "", roles: [], orders: [] }
     this.openDialog(item)
   }
 
@@ -130,9 +131,26 @@ export class CustomerComponent implements OnInit {
   }
 
   UpdateUserToTheDB(item: any) {
-
-    this.UserService.UpdateUser(item);
+    try {
+      const dialogRef = this.dialog.open(DialogComponent, { width: '600px', height: '600px' });
+      this.UserService.UpdateUser(item).subscribe(
+        res => {
+          if (res.status === 200) {
+            dialogRef.close()
+          }
+        }),
+        err => {
+          dialogRef.afterClosed().subscribe(result => alert("problem preforming this action" + err))
+          dialogRef.close()
+          
+        }
+    }
+    catch (err) {
+      console.log(err)
+    }
   }
+    
+  
 
   SaveUserToTheDB(result) {
     try {
