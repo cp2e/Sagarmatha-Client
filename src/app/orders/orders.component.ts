@@ -27,11 +27,13 @@ export class OrdersComponent implements OnInit {
   perPage = 10
   count = 1
   _OrderService
+  CurrenUser
   constructor(public OrderService: OrderService, public dialog: MatDialog) {
+    this.CurrenUser=JSON.parse(localStorage.getItem('userDetails'));
     this.displayedColumns = ['company', 'description', 'currency', 'actions']
     this._OrderService = OrderService
     this.getAllOrders()
-    this.getOrderCount()
+   
    }
 
   ngOnInit() {
@@ -80,11 +82,12 @@ export class OrdersComponent implements OnInit {
   }
 
   // CRUD operations
-  getAllOrders() {
+  async getAllOrders() {
     try {
       const dialogRef = this.dialog.open(DialogComponent, { width: '600px', height: '600px' });
-      this._OrderService.GetAllOrders(this.page, this.perPage).subscribe(
+      this._OrderService.GetAllOrders(this.page, this.perPage,this.CurrenUser._id).subscribe(
         result => {
+          
           console.log("fromclient", result)
           this.dataSource = result
           dialogRef.close()
@@ -104,7 +107,7 @@ export class OrdersComponent implements OnInit {
   delete(item) {
     try {
       const dialogRef = this.dialog.open(DialogComponent, { width: '600px', height: '600px' });
-      this._OrderService.DeleteOrder(item).subscribe(
+      this._OrderService.DeleteOrder(item,this.CurrenUser._id).subscribe(
         res => {
           if (res.status === 200) {
             if ((this.count - 1) % 10 == 0)
@@ -153,10 +156,10 @@ export class OrdersComponent implements OnInit {
     }
   }
 
-  getOrderCount() {
-    // this._OrderService.GetOrderCount(this.page, this.perPage).subscribe(res => {
-    //   let result = res.json()
-    //   this.count = result.count
-    // })
+  async getOrderCount() {
+    this._OrderService.GetOrderCount(this.page, this.perPage,this.CurrenUser._id).subscribe(res => {
+      let result = res.json()
+      this.count = result.count
+    })
   }
 }

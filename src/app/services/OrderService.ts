@@ -11,26 +11,26 @@ import { Observable } from 'rxjs';
 export class OrderService {
     constructor(public http: Http,private http2:HttpClient){}
 
-    public  GetAllOrders(page:number,page_size:number):Observable<any> { 
-         return this.http2.get(`/api/order/find_all_orders?page=${page}&page_size=${page_size}`).pipe(timeout(5000),catchError(this.handleError)) 
+    public  GetAllOrders(page:number,page_size:number,userId:string):Observable<any> { 
+         return this.http2.get(`/api/order/find_all_orders?page=${page}&page_size=${page_size}&userId=${userId}`).pipe(timeout(30000),catchError(this.handleError)) 
     }
 
-    public GetOrderCount(page:number,page_size:number) {
-        return this.http.get(`/api/order/user_count`).pipe(timeout(5000),catchError(this.handleError)) 
+    public GetOrderCount(page:number,page_size:number,userId:string) {
+        return this.http.get(`/api/order/order_count?userId=${userId}`).pipe(timeout(30000),catchError(this.handleError)) 
         
     }
 
     public UpdateOrder(User:any) {
-        return this.http.post(`/api/user/update`,User).pipe(timeout(5000),catchError(this.handleError))   
+        return this.http.post(`/api/user/update`,User).pipe(timeout(15000),catchError(this.handleError))   
     }
 
-    public DeleteOrder(User:any) {
+    public DeleteOrder(Order:any,userId) {
        
-        return this.http.get(`/api/user/delete?_id=${User._id}`).pipe(timeout(5000),catchError(this.handleError))   
+        return this.http.get(`/api/order/delete_user_order?_id=${Order._id}&userId=${userId}`).pipe(timeout(15000),catchError(this.handleError))   
     }
     
     public AddOrder(User:any) {
-        return this.http.post(`/api/user//add_user_order`,User).pipe(timeout(5000),catchError(this.handleError)) 
+        return this.http.post(`/api/user//add_user_order`,User).pipe(timeout(15000),catchError(this.handleError)) 
     }
    
 
