@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
   {
     localStorage.clear();
     this.LoggedIn=false;
+    window.location.reload();
   }
   Login() {
 
@@ -50,6 +51,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('userDetails', JSON.stringify(result));
         var retrievedObject = JSON.parse(localStorage.getItem('userDetails'));
         this.LoggedIn=true;
+        window.location.reload();
         }
          console.log (retrievedObject)
         // Retrieve the object from storage

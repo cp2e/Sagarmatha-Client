@@ -16,17 +16,22 @@ export class GridComponent implements OnInit {
   @Input() page:number 
   @Input() perPage:number 
   @Input() count:number
+  @Input() editAble:boolean
   @Output() goPrev = new EventEmitter<number>();
   @Output() goNext = new EventEmitter<number>();
   @Output() goPage = new EventEmitter<number>();
   @Output() Add = new EventEmitter<number>();
   @Output() Delete = new EventEmitter<number>();
   @Output() Edit = new EventEmitter<any>();
+ 
 
 
   
 
-  constructor() { }
+  constructor() { 
+    this.editAble=false;
+    console.log(this.editAble)
+  }
   
 
   ngOnInit() {

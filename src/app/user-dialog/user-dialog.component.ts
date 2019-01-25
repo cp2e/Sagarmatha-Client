@@ -3,6 +3,7 @@ import { Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 export interface Item {
+  userName:string
   firstName:string  
   lastName:string  
   adress:string  
@@ -26,6 +27,7 @@ export class UserDialogComponent implements OnInit {
   Customer:boolean=false
   Admin:boolean=false
   onAdd = new EventEmitter();
+  action=""
 
   constructor( public dialogRef: MatDialogRef<UserDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public item?: Item) { 
@@ -47,11 +49,11 @@ export class UserDialogComponent implements OnInit {
   }
   onSave():any
   {
-    this.dialogRef.close({item:this.item,Customer:this.Customer,Admin:this.Admin})
+    this.dialogRef.close({item:this.item,Customer:this.Customer,Admin:this.Admin,action:"Save"})
   }
   onClose():any
   {
-    this.dialogRef.close(null)
+    this.dialogRef.close({action:"Close"})
   }
 
 }
