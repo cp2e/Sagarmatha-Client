@@ -21,6 +21,12 @@ import { FormsModule } from '@angular/forms';
 import {HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component'
 import { GuardService } from './services/GuardService';
+// In app.module.ts
+import { FusionChartsModule } from 'angular-fusioncharts';
+import FusionCharts from 'fusioncharts/core';
+import Column2D from 'fusioncharts/viz/column2d';
+// Include Below Snippet
+FusionChartsModule.fcRoot(FusionCharts, Column2D);
 
 @NgModule({
   declarations: [
@@ -53,7 +59,8 @@ import { GuardService } from './services/GuardService';
     HttpModule,
     MatFormFieldModule,
     MatSelectModule,MatOptionModule,MatInputModule,FormsModule,HttpClientModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FusionChartsModule 
    
   ],
   providers: [UserService,OrderService,GuardService],

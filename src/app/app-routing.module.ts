@@ -11,7 +11,8 @@ const routes: Routes =  [
   
   {path: '',component: CustomerComponent,canActivate: [GuardService]} ,
   {path: 'Login',component: LoginComponent},
-  {path: 'Customers',component: CustomerComponent,canActivate: [GuardService]},
+  //{path: 'Customers',component: CustomerComponent,canActivate: [GuardService]},
+  {path: 'Customers',component: CustomerComponent},
   {path: 'Orders',component: OrdersComponent,canActivate: [GuardService]},
   {path: 'Analysis',component: AnalysisComponent,canActivate: [GuardService]},
  

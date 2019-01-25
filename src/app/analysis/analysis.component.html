@@ -1,3 +1,13 @@
-<p>
-  analysis works!
-</p>
+<mat-form-field>
+  <input matInput placeholder="Customer Name" [(ngModel)]="customerName">
+</mat-form-field>&nbsp;
+<button mat-raised-button color="primary" (click)="Search(customerName)">Search</button>
+{{selectedUser.userName}}
+<mat-spinner *ngIf="spinnerDisabled === false"></mat-spinner>
+
+<fusioncharts
+    width="700"
+    height="400"
+    type="Column2d"
+    [dataSource]="dataSource">
+</fusioncharts>

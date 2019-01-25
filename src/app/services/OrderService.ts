@@ -20,8 +20,8 @@ export class OrderService {
         
     }
 
-    public UpdateOrder(User:any) {
-        return this.http.post(`/api/user/update`,User).pipe(timeout(15000),catchError(this.handleError))   
+    public UpdateOrder(Order:any,userId:string) {
+        return this.http.post(`/api/order/update_user_order?userId=${userId}`,Order).pipe(timeout(15000),catchError(this.handleError))   
     }
 
     public DeleteOrder(Order:any,userId) {
@@ -29,8 +29,8 @@ export class OrderService {
         return this.http.get(`/api/order/delete_user_order?_id=${Order._id}&userId=${userId}`).pipe(timeout(15000),catchError(this.handleError))   
     }
     
-    public AddOrder(User:any) {
-        return this.http.post(`/api/user//add_user_order`,User).pipe(timeout(15000),catchError(this.handleError)) 
+    public AddOrder(initiatorUserId:string,Order:any,userId:string) {
+        return this.http.post(`/api/order/add_user_order?userId=${userId}&initiatorUserId=${initiatorUserId}`,Order).pipe(timeout(15000),catchError(this.handleError)) 
     }
    
 

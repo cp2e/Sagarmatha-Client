@@ -1,3 +1,46 @@
-<p>
-  order-dialog works!
-</p>
+<h5>{{action}} Order </h5>
+<br><br>
+
+
+<div class="example-container">
+
+  <div *ngIf="AdminCustomer&&action=='add'">
+    <h6>please enter a customer name</h6>
+    <div>
+    <mat-form-field>
+      <input matInput placeholder="Customer Name" [(ngModel)]="customerName">
+    </mat-form-field>&nbsp;
+    <button mat-raised-button color="primary" (click)="Search(customerName)">Search</button>
+    {{selectedUser.userName}}
+    <mat-spinner *ngIf="spinnerDisabled === false"></mat-spinner>
+  </div>
+    <br><br><br><br>
+  </div>
+
+
+
+
+
+  <mat-form-field>
+    <input matInput placeholder="Company" [(ngModel)]="data.item.company">
+  </mat-form-field>&nbsp;
+  <mat-form-field>
+    <input matInput placeholder="Description" [(ngModel)]="data.item.description">
+  </mat-form-field>&nbsp;
+  <mat-form-field>
+    <input matInput placeholder="Currency" [(ngModel)]="data.item.currency">
+  </mat-form-field>&nbsp;
+  <br>
+
+  <br><br><br><br><br><br><br><br><br><br>
+  <div *ngIf="AdminCustomer&&action=='add'; else elseBlock2">
+    <button mat-raised-button color="primary" [disabled]="saveDisable" (click)="onSave(item)">Save</button>&nbsp;
+    <button mat-raised-button color="primary" (click)="onClose(item)">Close</button>
+  </div>
+  <ng-template #elseBlock2>
+    <button mat-raised-button color="primary"  (click)="onSave(item)">Save</button>&nbsp;
+    <button mat-raised-button color="primary" (click)="onClose(item)">Close</button>
+  </ng-template>
+ 
+
+</div>
