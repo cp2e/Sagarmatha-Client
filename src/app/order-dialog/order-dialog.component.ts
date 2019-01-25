@@ -15,7 +15,7 @@ export interface Item {
 export class OrderDialogComponent implements OnInit {
   customerName = ""
   AdminCustomer = true
-  action: "";
+  action:string="";
   saveDisable = true
   spinnerDisabled = true
   selectedUser= {userName:""}

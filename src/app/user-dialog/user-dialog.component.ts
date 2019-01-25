@@ -3,6 +3,7 @@ import { Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 export interface Item {
+  userName:string
   firstName:string  
   lastName:string  
   adress:string  
