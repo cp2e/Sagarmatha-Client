@@ -89,6 +89,7 @@ export class OrdersComponent implements OnInit {
 
           console.log("fromclient", result)
           this.dataSource = result
+          this.getOrderCount()
           dialogRef.close()
         },
         err => {
@@ -190,9 +191,11 @@ export class OrdersComponent implements OnInit {
   }
 
   async getOrderCount() {
+    const dialogRef = this.dialog.open(DialogComponent, { width: '600px', height: '600px' });
     this._OrderService.GetOrderCount(this.page, this.perPage, this.CurrenUser._id).subscribe(res => {
       let result = res.json()
       this.count = result.count
+      dialogRef.close() 
     })
   }
 }
